@@ -128,6 +128,7 @@ npm start
 Create a .env file inside the backend folder:
 
 MONGO_URI=your_mongodb_connection
+
 JWT_SECRET=your_secret_key
 ### 🌟 Future Enhancements
 Real-Time Chat System
