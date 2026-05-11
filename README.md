@@ -131,11 +131,17 @@ MONGO_URI=your_mongodb_connection
 JWT_SECRET=your_secret_key
 ### 🌟 Future Enhancements
 Real-Time Chat System
+
 Email Notifications
+
 AI-Based Complaint Prioritization
+
 Cloud Deployment
+
 Advanced Analytics
 ### 👨‍💻 Author
 Lovaraju Dungala
+
 GitHub: https://github.com/lovaraju4406
+
 LinkedIn: https://www.linkedin.com/in/lova-raju-dungala-367591314/
