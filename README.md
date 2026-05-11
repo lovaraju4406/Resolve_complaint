@@ -69,19 +69,24 @@ The platform provides real-time complaint tracking, role-based access control, a
 
 
 ### 👤 User Dashboard
-![User Dashboard](./screenshots/user-dashboard.png)
+<img width="1918" height="924" alt="Screenshot 2026-05-11 210620" src="https://github.com/user-attachments/assets/dfb27bae-7d55-48a8-b009-38296bf3a9a6" />
 
 ### 🛠️ Agent Dashboard
-![Agent Dashboard](./screenshots/agent-dashboard.png)
+<img width="1909" height="920" alt="Screenshot 2026-05-11 210817" src="https://github.com/user-attachments/assets/5b2e6d95-7749-4fec-ba0b-7d8920543a00" />
 
 ### 👨‍💼 Admin Dashboard
-![Admin Dashboard](./screenshots/admin-dashboard.png)
+<img width="1917" height="912" alt="Screenshot 2026-05-11 210905" src="https://github.com/user-attachments/assets/bc65e043-453a-4537-8efa-ce1105992136" />
 
-### 📊 Complaint Analytics
-![Analytics](./screenshots/analytics-dashboard.png)
+
+### 📊 Complaint Filing
+<img width="1917" height="925" alt="Screenshot 2026-05-11 210720" src="https://github.com/user-attachments/assets/0260f277-9e84-4bfb-91ee-173c63f287fa" />
+
 
 ### 📋 Complaint Management
-![Complaint Management](./screenshots/complaint-management.png)
+<img width="1917" height="911" alt="Screenshot 2026-05-11 210919" src="https://github.com/user-attachments/assets/64000aac-54b6-4329-abf3-a2e9f48635f4" />
+
+<img width="1908" height="919" alt="Screenshot 2026-05-11 210832" src="https://github.com/user-attachments/assets/78481d15-c92c-4a91-ab47-d73e50101e99" />
+
 
 ---
 
@@ -91,14 +96,33 @@ The platform provides real-time complaint tracking, role-based access control, a
 
 ```bash
 git clone https://github.com/lovaraju4406/Resolve_complaint.git
-2️⃣ Backend Setup
+```
+
+---
+
+### 2️⃣ Backend Setup
+
+```bash
 cd backend
 npm install
 npm start
-3️⃣ Frontend Setup
+```
+
+or
+
+```bash
+node index.js
+```
+
+---
+
+### 3️⃣ Frontend Setup
+
+```bash
 cd frontend
 npm install
 npm start
+```
 🔐 Environment Variables
 
 Create a .env file inside the backend folder:
