@@ -123,19 +123,19 @@ cd frontend
 npm install
 npm start
 ```
-🔐 Environment Variables
+### 🔐 Environment Variables
 
 Create a .env file inside the backend folder:
 
 MONGO_URI=your_mongodb_connection
 JWT_SECRET=your_secret_key
-🌟 Future Enhancements
+### 🌟 Future Enhancements
 Real-Time Chat System
 Email Notifications
 AI-Based Complaint Prioritization
 Cloud Deployment
 Advanced Analytics
-👨‍💻 Author
+### 👨‍💻 Author
 Lovaraju Dungala
 GitHub: https://github.com/lovaraju4406
 LinkedIn: https://www.linkedin.com/in/lova-raju-dungala-367591314/
