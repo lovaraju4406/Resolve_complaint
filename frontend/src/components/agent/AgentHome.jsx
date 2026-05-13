@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../user/axiosInstance';
 
 import { CSS } from './agentStyles';
-import { Toasts, toast } from './agentUtils';
+import { Toasts } from './agentUtils';
 import AgentLanding    from './AgentLanding';
 import AgentDashboard  from './AgentDashboard';
 import AgentComplaints from './AgentComplaints';

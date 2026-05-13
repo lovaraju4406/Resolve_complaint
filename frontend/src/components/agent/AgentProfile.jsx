@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../user/axiosInstance';
-import { toast, renderStars } from './agentUtils';
+import { toast } from './agentUtils';
 
 const WEEKS = ['This week', '1 wk ago', '2 wks ago', '3 wks ago', '4 wks ago'];
 

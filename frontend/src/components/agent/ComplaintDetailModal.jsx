@@ -3,7 +3,7 @@ import axios from 'axios';
 import ChatWindow from '../common/ChatWindow';
 import {
   STATUS_META, timeAgo, formatDate, getSentiment,
-  SENTIMENT_META, PRIORITY_META, getSLAStatus, renderStars,
+  SENTIMENT_META, PRIORITY_META, getSLAStatus,
   CANNED_RESPONSES, toast
 } from './agentUtils';
 

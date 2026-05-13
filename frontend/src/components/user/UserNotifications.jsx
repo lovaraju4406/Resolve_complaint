@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from './axiosInstance';
 import { Icon, Icons, timeAgo } from './userUtils';
 
@@ -36,11 +36,7 @@ export default function UserNotifications({ userId, unreadCount, setUnreadCount 
       .finally(() => setLoading(false));
   };
 
-  useEffect(() => {
-    fetchNotifs();
-    const iv = setInterval(fetchNotifs, 30000);
-    return () => clearInterval(iv);
-  }, [userId]);
+
 
   const markAllRead = async () => {
     try {

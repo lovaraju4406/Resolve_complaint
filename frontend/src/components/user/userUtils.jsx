@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import jsPDF from 'jspdf';
-import { CSS as USER_CSS } from './userStyles';
+
 
 /* ── SVG Icon ── */
 export const Icon = ({ d, size = 16, stroke = 'currentColor', fill = 'none', sw = 1.6 }) => (

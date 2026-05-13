@@ -9,19 +9,18 @@ const ChatWindow = (props) => {
   const [summary, setSummary] = useState('');
   const [showSummary, setShowSummary] = useState(false);
 
-  const fetchMessageList = async () => {
-    try {
-      const response = await axios.get(`https://resolve-complaint.onrender.com/messages/${props.complaintId}`);
-      setMessageList(response.data);
-    } catch (error) {
-      console.error('Error fetching messages:', error);
-    }
-  };
+  const fetchMessageList = React.useCallback(async () => {
+  try {
+    const response = await axios.get(`https://resolve-complaint.onrender.com/messages/${props.complaintId}`);
+    setMessageList(response.data);
+  } catch (error) {
+    console.error('Error fetching messages:', error);
+  }
+}, [props.complaintId]);
 
   useEffect(() => {
-    fetchMessageList();
-  }, [props.complaintId]);
-
+  fetchMessageList();
+}, [props.complaintId, fetchMessageList]);
   useEffect(() => {
     scrollToBottom();
   }, [messageList]);
