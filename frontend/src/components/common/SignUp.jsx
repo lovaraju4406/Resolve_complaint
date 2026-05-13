@@ -394,7 +394,7 @@ const SignUp = () => {
         const { name, email, sub: googleId, picture } = googleUserRes.data;
 
         // Send to your backend — backend creates user if not exists, returns JWT
-        const res = await axios.post('http://localhost:8000/auth/google', {
+        const res = await axios.post('https://resolve-complaint.onrender.com/auth/google', {
           name,
           email,
           googleId,
@@ -429,7 +429,7 @@ const SignUp = () => {
     setError('');
     const payload = { ...user, userType: role };
     try {
-      const res = await axios.post('http://localhost:8000/SignUp', payload);
+      const res = await axios.post('https://resolve-complaint.onrender.com/SignUp', payload);
       alert('Account created successfully!');
       console.log(res.data.user);
       setUser({ name: '', email: '', password: '', phone: '', userType: 'Ordinary' });

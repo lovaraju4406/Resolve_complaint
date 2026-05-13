@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axiosInstance from '../user/axiosInstance';   // ✅ was: import axios from 'axios'
 import ChatWindow from '../common/ChatWindow';
 
-const API = 'http://localhost:8000';
+const API = 'https://resolve-complaint.onrender.com';
 
 /* ─────────────────────────────────────────────────────────
    AccordionAdmin.jsx — Fixed version
@@ -417,7 +417,7 @@ export default function AccordionAdmin({ showToast, mode = 'unassigned', onAudit
       setLoading(false);
     };
     load();
-  }, [mode]);
+  }, [mode, showToast]);
 
   const toggleOpen = id => setOpen(p => ({ ...p, [id]: !p[id] }));
   const toggleChat = id => setChatOpen(p => ({ ...p, [id]: !p[id] }));

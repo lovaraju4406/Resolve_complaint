@@ -20,7 +20,7 @@ export default function AgentProfile({ user, stats, complaints }) {
   // Fetch real performance data; fall back to dummy
   useEffect(() => {
     if (!user?._id) return;
-    axios.get(`http://localhost:8000/agent/performance/${user._id}`)
+    axios.get(`https://resolve-complaint.onrender.com/agent/performance/${user._id}`)
       .then(res => setPerfData(res.data))
       .catch(() => {
         // Fallback dummy data when endpoint doesn't exist yet
@@ -48,7 +48,7 @@ export default function AgentProfile({ user, stats, complaints }) {
     setPwdLoading(true);
     try {
       // Send current password to backend for verification
-      await axios.put(`http://localhost:8000/user/${user._id}/change-password`, {
+      await axios.put(`https://resolve-complaint.onrender.com/user/${user._id}/change-password`, {
         currentPassword: pwdForm.current,
         newPassword: pwdForm.newPwd,
       });

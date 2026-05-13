@@ -26,7 +26,7 @@ export default function UserProfile({ user, complaints, logout, setUser }) {
   const saveProfile = async () => {
     setSaveLoading(true);
     try {
-      const res = await axios.put(`http://localhost:8000/user/${user._id}`, {
+      const res = await axios.put(`https://resolve-complaint.onrender.com/user/${user._id}`, {
         name: profile.name, email: profile.email, phone: profile.phone,
       });
       const updated = { ...user, ...res.data };
@@ -44,7 +44,7 @@ export default function UserProfile({ user, complaints, logout, setUser }) {
     if (pwd.newPwd.length < 6)      { setPwdMsg('error:Minimum 6 characters required'); return; }
     setPwdLoading(true);
     try {
-      await axios.put(`http://localhost:8000/user/${user._id}/change-password`, {
+      await axios.put(`https://resolve-complaint.onrender.com/user/${user._id}/change-password`, {
         currentPassword: pwd.current,
         newPassword: pwd.newPwd,
       });

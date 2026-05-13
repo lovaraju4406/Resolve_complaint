@@ -4,7 +4,7 @@
 
 import axios from 'axios';
 
-const API_BASE = process.env.REACT_APP_API || 'http://localhost:8000';
+const API_BASE = process.env.REACT_APP_API || 'https://resolve-complaint.onrender.com';
 
 const instance = axios.create({
   baseURL: API_BASE,

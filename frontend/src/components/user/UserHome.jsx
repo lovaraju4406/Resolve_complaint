@@ -497,7 +497,7 @@ export default function UserHome() {
 
   /* Load user & complaints */
   const fetchComplaints = useCallback((uid) => {
-    axios.get(`http://localhost:8000/status/${uid}`)
+    axios.get(`https://resolve-complaint.onrender.com/status/${uid}`)
       .then(res => { if (res.data?.length) setComplaints(res.data); })
       .catch(() => {}).finally(() => setLoading(false));
   }, []);
@@ -508,7 +508,7 @@ export default function UserHome() {
     const u = JSON.parse(stored);
     setUser(u);
     fetchComplaints(u._id);
-    axios.get(`http://localhost:8000/notifications/${u._id}`)
+    axios.get(`https://resolve-complaint.onrender.com/notifications/${u._id}`)
       .then(res => setUnreadCount((res.data||[]).filter(n=>!n.read).length))
       .catch(() => {});
   }, [navigate, fetchComplaints]);

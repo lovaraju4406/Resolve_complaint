@@ -46,11 +46,11 @@ export default function AgentHome() {
     const u = JSON.parse(stored);
     setUser(u);
 
-    axios.get(`http://localhost:8000/allcomplaints/${u._id}`)
+    axios.get(`https://resolve-complaint.onrender.com/allcomplaints/${u._id}`)
       .then(res => { setComplaints(res.data || []); setLoading(false); })
       .catch(() => setLoading(false));
 
-    axios.get(`http://localhost:8000/notifications/${u._id}`)
+    axios.get(`https://resolve-complaint.onrender.com/notifications/${u._id}`)
       .then(res => {
         setNotifications(res.data || []);
         setUnreadCount((res.data || []).filter(n => !n.read).length);
@@ -78,7 +78,7 @@ export default function AgentHome() {
   const markAllRead = () => {
     setUnreadCount(0);
     if (user?._id) {
-      axios.put(`http://localhost:8000/notifications/${user._id}/read-all`).catch(() => {});
+      axios.put(`https://resolve-complaint.onrender.com/notifications/${user._id}/read-all`).catch(() => {});
     }
   };
 

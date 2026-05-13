@@ -125,7 +125,7 @@ export default function UserRaise({ userId, userName, complaints, setComplaints,
         const fd = new FormData();
         files.forEach(f => fd.append('files', f));
         try {
-          const upRes = await axios.post('http://localhost:8000/upload', fd, {
+          const upRes = await axios.post('https://resolve-complaint.onrender.com/upload', fd, {
             headers: { 'Content-Type': 'multipart/form-data' },
             onUploadProgress: (e) => setUploadPct(Math.round((e.loaded / e.total) * 100)),
           });
@@ -138,7 +138,7 @@ export default function UserRaise({ userId, userName, complaints, setComplaints,
       }
 
       const payload = { ...form, userId, attachments };
-      const res = await axios.post(`http://localhost:8000/Complaint/${userId}`, payload);
+      const res = await axios.post(`https://resolve-complaint.onrender.com/Complaint/${userId}`, payload);
       const newComplaint = res.data;
 
       setComplaints(prev => [newComplaint, ...prev]);

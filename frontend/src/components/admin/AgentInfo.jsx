@@ -107,7 +107,7 @@ export default function AgentInfo({ showToast }) {
   const [newAgent,         setNewAgent]         = useState({name:'',email:'',phone:'',password:'Agent@123',userType:'Agent'});
 
   useEffect(() => {
-    axios.get('http://localhost:8000/AgentUsers')
+    axios.get('https://resolve-complaint.onrender.com/AgentUsers')
       .then(r => {
         const arr = toArr(r.data, 'agents', 'data', 'users', 'result');
         setAgents(arr.map(a => ({...a, isActive: a.isActive !== false})));
@@ -124,7 +124,7 @@ export default function AgentInfo({ showToast }) {
 
   const saveEdit = async id => {
     try {
-      await axios.put(`http://localhost:8000/user/${id}`, editForm);
+      await axios.put(`https://resolve-complaint.onrender.com/user/${id}`, editForm);
       setAgents(p => p.map(a => a._id===id ? {...a,...editForm} : a));
       setEditId(null);
       showToast?.('Agent updated','success');
@@ -134,7 +134,7 @@ export default function AgentInfo({ showToast }) {
   const deleteAgent = async id => {
     if (!window.confirm('Delete this agent? This cannot be undone.')) return;
     try {
-      await axios.delete(`http://localhost:8000/OrdinaryUsers/${id}`);
+      await axios.delete(`https://resolve-complaint.onrender.com/OrdinaryUsers/${id}`);
       setAgents(p => p.filter(a => a._id!==id));
       showToast?.('Agent removed','success');
     } catch { showToast?.('Delete failed','error'); }
@@ -143,7 +143,7 @@ export default function AgentInfo({ showToast }) {
   const toggleActive = async agent => {
     const newActive = !agent.isActive;
     try {
-      await axios.put(`http://localhost:8000/user/${agent._id}`, {isActive: newActive});
+      await axios.put(`https://resolve-complaint.onrender.com/user/${agent._id}`, {isActive: newActive});
     } catch {}
     setAgents(p => p.map(a => a._id===agent._id ? {...a,isActive:newActive} : a));
     showToast?.(`${agent.name} marked as ${newActive?'Active':'Inactive'}`, 'success');
@@ -154,8 +154,8 @@ export default function AgentInfo({ showToast }) {
     setScorecardLoading(true);
     try {
       const [perfRes, assignedRes] = await Promise.all([
-        axios.get(`http://localhost:8000/agent/performance/${agent._id}`).catch(()=>({data:{}})),
-        axios.get(`http://localhost:8000/allcomplaints/${agent._id}`).catch(()=>({data:[]})),
+        axios.get(`https://resolve-complaint.onrender.com/agent/performance/${agent._id}`).catch(()=>({data:{}})),
+        axios.get(`https://resolve-complaint.onrender.com/allcomplaints/${agent._id}`).catch(()=>({data:[]})),
       ]);
       const assigned = toArr(assignedRes.data, 'complaints', 'data', 'result');
       const perf     = perfRes.data || {};
@@ -174,7 +174,7 @@ export default function AgentInfo({ showToast }) {
   const addAgent = async () => {
     if (!newAgent.name||!newAgent.email) { showToast?.('Name and email are required','error'); return; }
     try {
-      const res = await axios.post('http://localhost:8000/SignUp', newAgent);
+      const res = await axios.post('https://resolve-complaint.onrender.com/SignUp', newAgent);
       setAgents(p => [...p, {...res.data, isActive:true}]);
       setShowModal(false);
       setNewAgent({name:'',email:'',phone:'',password:'Agent@123',userType:'Agent'});

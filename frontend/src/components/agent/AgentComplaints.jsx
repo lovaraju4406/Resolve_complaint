@@ -5,7 +5,7 @@ import ComplaintDetailModal from './ComplaintDetailModal';
 import {
   STATUS_META, timeAgo, getSentiment, SENTIMENT_META,
   PRIORITY_META, getSLAStatus, getHeuristicPriority,
-  renderStars, CANNED_RESPONSES, toast
+  CANNED_RESPONSES, toast
 } from './agentUtils';
 
 const POLL_INTERVAL = 30000; // 30 seconds
@@ -27,7 +27,7 @@ export default function AgentComplaints({ user, complaints, setComplaints }) {
   // ── Polling for new complaints ──
   const fetchComplaints = useCallback(() => {
     if (!user?._id) return;
-    axios.get(`http://localhost:8000/allcomplaints/${user._id}`)
+    axios.get(`https://resolve-complaint.onrender.com/allcomplaints/${user._id}`)
       .then(res => {
         const fresh = res.data || [];
         setComplaints(prev => {
@@ -53,7 +53,7 @@ export default function AgentComplaints({ user, complaints, setComplaints }) {
     if (!cid) { toast('Missing complaint ID', 'e'); return; }
     setUpdating(p => ({ ...p, [cid]: true }));
     try {
-      await axios.put(`http://localhost:8000/complaint/${cid}`, {
+      await axios.put(`https://resolve-complaint.onrender.com/complaint/${cid}`, {
         status: newStatus,
         note: notes[cid]?.trim() || undefined,
       });

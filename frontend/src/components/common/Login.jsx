@@ -81,7 +81,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true); setError('');
     try {
-      const res = await axios.post('http://localhost:8000/Login', user);
+      const res = await axios.post('https://resolve-complaint.onrender.com/Login', user);
       const { token, ...userData } = res.data;
       localStorage.setItem('user',  JSON.stringify(userData));
       localStorage.setItem('token', token);
@@ -101,7 +101,7 @@ const Login = () => {
           'https://www.googleapis.com/oauth2/v3/userinfo',
           { headers: { Authorization: `Bearer ${tokenResponse.access_token}` } }
         );
-        const res = await axios.post('http://localhost:8000/auth/google', {
+        const res = await axios.post('https://resolve-complaint.onrender.com/auth/google', {
           name: profile.name, email: profile.email,
           googleId: profile.sub, picture: profile.picture, userType: 'Ordinary',
         });
@@ -128,7 +128,7 @@ const Login = () => {
     if (!fpEmail) { setFpError('Please enter your email.'); return; }
     setFpLoading(true); setFpError('');
     try {
-      await axios.post('http://localhost:8000/forgot-password', { email: fpEmail });
+      await axios.post('https://resolve-complaint.onrender.com/forgot-password', { email: fpEmail });
       setFpStep('otp');
     } catch (err) {
       setFpError(err.response?.data?.message || 'No account found with that email.');
@@ -140,7 +140,7 @@ const Login = () => {
     if (fpOtp.length < 4) { setFpError('Please enter the full OTP.'); return; }
     setFpLoading(true); setFpError('');
     try {
-      await axios.post('http://localhost:8000/verify-otp', { email: fpEmail, otp: fpOtp });
+      await axios.post('https://resolve-complaint.onrender.com/verify-otp', { email: fpEmail, otp: fpOtp });
       setFpStep('reset');
     } catch (err) {
       setFpError(err.response?.data?.message || 'Invalid or expired OTP.');
@@ -153,7 +153,7 @@ const Login = () => {
     if (fpNewPwd !== fpConfirm) { setFpError('Passwords do not match.'); return; }
     setFpLoading(true); setFpError('');
     try {
-      await axios.post('http://localhost:8000/reset-password', { email: fpEmail, otp: fpOtp, newPassword: fpNewPwd });
+      await axios.post('https://resolve-complaint.onrender.com/reset-password', { email: fpEmail, otp: fpOtp, newPassword: fpNewPwd });
       setFpStep('done');
     } catch (err) {
       setFpError(err.response?.data?.message || 'Failed to reset password.');

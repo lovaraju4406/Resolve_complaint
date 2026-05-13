@@ -11,7 +11,7 @@ const ChatWindow = (props) => {
 
   const fetchMessageList = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/messages/${props.complaintId}`);
+      const response = await axios.get(`https://resolve-complaint.onrender.com/messages/${props.complaintId}`);
       setMessageList(response.data);
     } catch (error) {
       console.error('Error fetching messages:', error);
@@ -34,7 +34,7 @@ const ChatWindow = (props) => {
         message: messageInput,
         complaintId: props.complaintId,
       };
-      const response = await axios.post('http://localhost:8000/messages', data);
+      const response = await axios.post('https://resolve-complaint.onrender.com/messages', data);
       setMessageList([...messageList, response.data]);
       setMessageInput('');
       fetchMessageList();

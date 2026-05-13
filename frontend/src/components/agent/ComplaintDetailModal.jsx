@@ -30,7 +30,7 @@ export default function ComplaintDetailModal({ complaint, user, onClose, onStatu
   // Fetch timeline if not bundled
   useEffect(() => {
     if (!complaint.timeline && cid) {
-      axios.get(`http://localhost:8000/complaint/${cid}/timeline`)
+      axios.get(`https://resolve-complaint.onrender.com/complaint/${cid}/timeline`)
         .then(res => setTimeline(res.data || []))
         .catch(() => {});
     }
@@ -40,7 +40,7 @@ export default function ComplaintDetailModal({ complaint, user, onClose, onStatu
     if (!cid) { toast('Missing complaint ID', 'e'); return; }
     setUpdating(true);
     try {
-      await axios.put(`http://localhost:8000/complaint/${cid}`, {
+      await axios.put(`https://resolve-complaint.onrender.com/complaint/${cid}`, {
         status: statusSel,
         note: note.trim() || undefined,
       });

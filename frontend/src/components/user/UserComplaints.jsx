@@ -32,7 +32,7 @@ export default function UserComplaints({ complaints, setComplaints, setView, set
   /* ── Withdraw (cancel) complaint ── */
   const withdrawComplaint = async (c) => {
     try {
-      await axios.put(`http://localhost:8000/complaint/${c._id}`, { status: 'Withdrawn', agentName: 'User' });
+      await axios.put(`https://resolve-complaint.onrender.com/complaint/${c._id}`, { status: 'Withdrawn', agentName: 'User' });
       setComplaints(prev => prev.map(x => x._id === c._id ? { ...x, status: 'Withdrawn' } : x));
       toast('Complaint withdrawn successfully', 's');
     } catch { toast('Failed to withdraw complaint', 'e'); }
@@ -44,7 +44,7 @@ export default function UserComplaints({ complaints, setComplaints, setView, set
     const daysSince = (Date.now() - new Date(c.updatedAt)) / 86400000;
     if (daysSince > 7) { toast('Reopen window (7 days) has passed', 'e'); return; }
     try {
-      await axios.put(`http://localhost:8000/complaint/${c._id}`, {
+      await axios.put(`https://resolve-complaint.onrender.com/complaint/${c._id}`, {
         status: 'Pending',
         note: 'Reopened by user — issue persists.',
         agentName: 'User',
@@ -63,7 +63,7 @@ export default function UserComplaints({ complaints, setComplaints, setView, set
     let timeline = c.timeline || [];
     if (!timeline.length && c._id) {
       try {
-        const res = await axios.get(`http://localhost:8000/complaint/${c._id}/timeline`);
+        const res = await axios.get(`https://resolve-complaint.onrender.com/complaint/${c._id}/timeline`);
         timeline = res.data || [];
       } catch {}
     }

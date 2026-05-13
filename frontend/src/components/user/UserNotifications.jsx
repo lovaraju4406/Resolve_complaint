@@ -27,7 +27,7 @@ export default function UserNotifications({ userId, unreadCount, setUnreadCount 
 
   const fetchNotifs = () => {
     if (!userId) return;
-    axios.get(`http://localhost:8000/notifications/${userId}`)
+    axios.get(`https://resolve-complaint.onrender.com/notifications/${userId}`)
       .then(res => {
         setNotifs(res.data || []);
         setUnreadCount((res.data || []).filter(n => !n.read).length);
@@ -44,7 +44,7 @@ export default function UserNotifications({ userId, unreadCount, setUnreadCount 
 
   const markAllRead = async () => {
     try {
-      await axios.put(`http://localhost:8000/notifications/${userId}/read-all`);
+      await axios.put(`https://resolve-complaint.onrender.com/notifications/${userId}/read-all`);
       setNotifs(prev => prev.map(n => ({ ...n, read: true })));
       setUnreadCount(0);
     } catch {}

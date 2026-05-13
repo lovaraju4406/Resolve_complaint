@@ -94,7 +94,7 @@ export default function UserInfo({ showToast }) {
   const [sortDir,    setSortDir]    = useState(1);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/OrdinaryUsers')
+    axios.get('https://resolve-complaint.onrender.com/OrdinaryUsers')
       .then(r => {
         const arr = toArr(r.data, 'users', 'data', 'result', 'OrdinaryUsers');
         setUsers(arr);
@@ -130,7 +130,7 @@ export default function UserInfo({ showToast }) {
 
   const saveEdit = async id => {
     try {
-      await axios.put(`http://localhost:8000/user/${id}`, editForm);
+      await axios.put(`https://resolve-complaint.onrender.com/user/${id}`, editForm);
       setUsers(p=>p.map(u=>u._id===id?{...u,...editForm}:u));
       setEditId(null);
       showToast?.('User updated successfully','success');
@@ -139,7 +139,7 @@ export default function UserInfo({ showToast }) {
 
   const deleteUser = async () => {
     try {
-      await axios.delete(`http://localhost:8000/OrdinaryUsers/${confirmId}`);
+      await axios.delete(`https://resolve-complaint.onrender.com/OrdinaryUsers/${confirmId}`);
       setUsers(p=>p.filter(u=>u._id!==confirmId));
       setConfirmId(null);
       showToast?.('User deleted','success');

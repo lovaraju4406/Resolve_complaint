@@ -6,7 +6,7 @@ import UserInfo from './UserInfo';
 import AgentInfo from './AgentInfo';
 import Footer from '../common/FooterC';
 
-const API = 'http://localhost:8000';
+const API = 'https://resolve-complaint.onrender.com';
 
 /* ─── Toast ──────────────────────────────────────────────── */
 let _tid = 0, _setT = () => {};
