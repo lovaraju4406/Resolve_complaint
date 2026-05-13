@@ -53,21 +53,9 @@ const CSS = `
 .ui-page-btn:hover,.ui-page-btn.active{background:#ecfdf5;border-color:#10b981;color:#059669}
 .ui-page-btn.active{background:linear-gradient(135deg,#10b981,#059669);color:#fff;box-shadow:0 3px 10px rgba(16,185,129,.25)}
 .ui-page-btn:disabled{opacity:.35;cursor:not-allowed}
-
-/* ─── Confirm Delete Modal (FIXED) ─── */
-.ui-confirm-ov{
-  position:fixed;inset:0;z-index:1000;
-  background:rgba(15,23,42,.4);backdrop-filter:blur(6px);
-  display:flex;align-items:center;justify-content:center;
-  padding:1rem;animation:uiFade .2s ease both;
-}
+.ui-confirm-ov{position:fixed;inset:0;z-index:1000;background:rgba(15,23,42,.4);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1rem;animation:uiFade .2s ease both}
 @keyframes uiFade{from{opacity:0}to{opacity:1}}
-.ui-confirm{
-  background:#fff;border:1.5px solid rgba(220,38,38,.18);
-  border-radius:22px;padding:30px;width:100%;max-width:390px;
-  box-shadow:0 20px 50px rgba(0,0,0,.1);
-  animation:uiModal .3s cubic-bezier(.34,1.56,.64,1) both;
-}
+.ui-confirm{background:#fff;border:1.5px solid rgba(220,38,38,.18);border-radius:22px;padding:30px;width:100%;max-width:390px;box-shadow:0 20px 50px rgba(0,0,0,.1);animation:uiModal .3s cubic-bezier(.34,1.56,.64,1) both}
 @keyframes uiModal{from{opacity:0;transform:scale(.92) translateY(20px)}to{opacity:1;transform:none}}
 .ui-confirm-icon{font-size:40px;text-align:center;margin-bottom:14px}
 .ui-confirm-title{font-size:20px;font-weight:800;color:#111827;margin-bottom:7px;text-align:center}
@@ -80,11 +68,17 @@ const CSS = `
 .ui-confirm-btn.del-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(239,68,68,.4)}
 `;
 
+function toArr(raw, ...keys) {
+  if (Array.isArray(raw)) return raw;
+  for (const k of keys) if (Array.isArray(raw?.[k])) return raw[k];
+  return [];
+}
+
 const PAGE_SIZE = 8;
 const ROLE_COLORS = {
-  Ordinary: { bg:'rgba(59,130,246,.1)',  color:'#2563eb', border:'rgba(59,130,246,.2)'  },
-  Agent:    { bg:'rgba(99,102,241,.1)',  color:'#6366f1', border:'rgba(99,102,241,.2)'  },
-  Admin:    { bg:'rgba(245,158,11,.1)',  color:'#d97706', border:'rgba(245,158,11,.2)'  },
+  Ordinary: {bg:'rgba(59,130,246,.1)', color:'#2563eb',border:'rgba(59,130,246,.2)'},
+  Agent:    {bg:'rgba(99,102,241,.1)', color:'#6366f1',border:'rgba(99,102,241,.2)'},
+  Admin:    {bg:'rgba(245,158,11,.1)', color:'#d97706',border:'rgba(245,158,11,.2)'},
 };
 
 export default function UserInfo({ showToast }) {
@@ -93,7 +87,7 @@ export default function UserInfo({ showToast }) {
   const [search,     setSearch]     = useState('');
   const [roleFilter, setRoleFilter] = useState('All');
   const [editId,     setEditId]     = useState(null);
-  const [editForm,   setEditForm]   = useState({ name:'', email:'', phone:'' });
+  const [editForm,   setEditForm]   = useState({name:'',email:'',phone:''});
   const [page,       setPage]       = useState(1);
   const [confirmId,  setConfirmId]  = useState(null);
   const [sortKey,    setSortKey]    = useState('name');
@@ -101,12 +95,16 @@ export default function UserInfo({ showToast }) {
 
   useEffect(() => {
     axios.get('http://localhost:8000/OrdinaryUsers')
-      .then(r => { setUsers(r.data || []); setLoading(false); })
+      .then(r => {
+        const arr = toArr(r.data, 'users', 'data', 'result', 'OrdinaryUsers');
+        setUsers(arr);
+        setLoading(false);
+      })
       .catch(() => setLoading(false));
   }, []);
 
   const handleSort = key => {
-    if (sortKey === key) setSortDir(d => -d);
+    if (sortKey===key) setSortDir(d=>-d);
     else { setSortKey(key); setSortDir(1); }
   };
 
@@ -116,41 +114,41 @@ export default function UserInfo({ showToast }) {
         u.name?.toLowerCase().includes(search.toLowerCase()) ||
         u.email?.toLowerCase().includes(search.toLowerCase()) ||
         u.phone?.includes(search);
-      const matchRole = roleFilter === 'All' || u.userType === roleFilter;
+      const matchRole = roleFilter==='All' || u.userType===roleFilter;
       return matchSearch && matchRole;
     })
-    .sort((a, b) => {
-      const av = (a[sortKey] || '').toLowerCase();
-      const bv = (b[sortKey] || '').toLowerCase();
-      return av < bv ? -sortDir : av > bv ? sortDir : 0;
+    .sort((a,b)=>{
+      const av=(a[sortKey]||'').toLowerCase();
+      const bv=(b[sortKey]||'').toLowerCase();
+      return av<bv?-sortDir:av>bv?sortDir:0;
     });
 
-  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  const totalPages = Math.ceil(filtered.length/PAGE_SIZE);
   const paginated  = filtered.slice((page-1)*PAGE_SIZE, page*PAGE_SIZE);
 
-  const startEdit = user => { setEditId(user._id); setEditForm({ name:user.name, email:user.email, phone:user.phone||'' }); };
+  const startEdit = user=>{ setEditId(user._id); setEditForm({name:user.name,email:user.email,phone:user.phone||''}); };
 
   const saveEdit = async id => {
     try {
       await axios.put(`http://localhost:8000/user/${id}`, editForm);
-      setUsers(p => p.map(u => u._id===id ? { ...u, ...editForm } : u));
+      setUsers(p=>p.map(u=>u._id===id?{...u,...editForm}:u));
       setEditId(null);
-      showToast?.('User updated successfully', 'success');
-    } catch { showToast?.('Update failed', 'error'); }
+      showToast?.('User updated successfully','success');
+    } catch { showToast?.('Update failed','error'); }
   };
 
   const deleteUser = async () => {
     try {
       await axios.delete(`http://localhost:8000/OrdinaryUsers/${confirmId}`);
-      setUsers(p => p.filter(u => u._id !== confirmId));
+      setUsers(p=>p.filter(u=>u._id!==confirmId));
       setConfirmId(null);
-      showToast?.('User deleted', 'success');
-    } catch { showToast?.('Delete failed', 'error'); setConfirmId(null); }
+      showToast?.('User deleted','success');
+    } catch { showToast?.('Delete failed','error'); setConfirmId(null); }
   };
 
-  const SortIcon = ({ col }) => (
-    <span style={{ marginLeft:4, opacity:sortKey===col?1:.3 }}>
-      {sortKey===col ? (sortDir===1?'↑':'↓') : '↕'}
+  const SortIcon = ({col}) => (
+    <span style={{marginLeft:4,opacity:sortKey===col?1:.3}}>
+      {sortKey===col?(sortDir===1?'↑':'↓'):'↕'}
     </span>
   );
 
@@ -158,32 +156,27 @@ export default function UserInfo({ showToast }) {
     <>
       <style>{CSS}</style>
       <div className="ui-wrap">
-        {/* Stats */}
         <div className="ui-stats">
           {[
-            { label:'Total Users', num:users.length,                                        color:'#2563eb' },
-            { label:'Ordinary',    num:users.filter(u=>u.userType==='Ordinary').length,     color:'#6366f1' },
-            { label:'Agents',      num:users.filter(u=>u.userType==='Agent').length,        color:'#059669' },
-            { label:'Admins',      num:users.filter(u=>u.userType==='Admin').length,        color:'#d97706' },
-          ].map(s => (
+            {label:'Total Users',num:users.length,                                      color:'#2563eb'},
+            {label:'Ordinary',   num:users.filter(u=>u.userType==='Ordinary').length,  color:'#6366f1'},
+            {label:'Agents',     num:users.filter(u=>u.userType==='Agent').length,     color:'#059669'},
+            {label:'Admins',     num:users.filter(u=>u.userType==='Admin').length,     color:'#d97706'},
+          ].map(s=>(
             <div className="ui-stat" key={s.label}>
-              <div className="ui-stat-num" style={{ color:s.color }}>{s.num}</div>
+              <div className="ui-stat-num" style={{color:s.color}}>{s.num}</div>
               <div className="ui-stat-label">{s.label}</div>
             </div>
           ))}
         </div>
 
-        {/* Toolbar */}
         <div className="ui-toolbar">
           <div className="ui-search">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2.5" strokeLinecap="round">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input placeholder="Search by name, email, phone…" value={search}
-              onChange={e => { setSearch(e.target.value); setPage(1); }}/>
-            {search && <button onClick={() => setSearch('')} style={{ background:'none', border:'none', cursor:'pointer', color:'#9ca3af', fontSize:16, padding:0 }}>✕</button>}
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2.5" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input placeholder="Search by name, email, phone…" value={search} onChange={e=>{setSearch(e.target.value);setPage(1);}}/>
+            {search&&<button onClick={()=>setSearch('')} style={{background:'none',border:'none',cursor:'pointer',color:'#9ca3af',fontSize:16,padding:0}}>✕</button>}
           </div>
-          <select className="ui-filter-select" value={roleFilter} onChange={e => { setRoleFilter(e.target.value); setPage(1); }}>
+          <select className="ui-filter-select" value={roleFilter} onChange={e=>{setRoleFilter(e.target.value);setPage(1);}}>
             <option value="All">All Roles</option>
             <option value="Ordinary">Ordinary</option>
             <option value="Agent">Agent</option>
@@ -192,34 +185,33 @@ export default function UserInfo({ showToast }) {
           <span className="ui-count">{filtered.length} user{filtered.length!==1?'s':''}</span>
         </div>
 
-        {/* Table */}
         <div className="ui-table-card">
-          {loading ? (
-            <div style={{ padding:16 }}>{[1,2,3,4,5].map(i => <div key={i} className="ui-skel"/>)}</div>
-          ) : paginated.length === 0 ? (
-            <div className="ui-empty"><div className="ui-empty-icon">👤</div>{search||roleFilter!=='All' ? 'No users match your filters.' : 'No users registered yet.'}</div>
-          ) : (
-            <div style={{ overflowX:'auto' }}>
+          {loading?(
+            <div style={{padding:16}}>{[1,2,3,4,5].map(i=><div key={i} className="ui-skel"/>)}</div>
+          ):paginated.length===0?(
+            <div className="ui-empty"><div className="ui-empty-icon">👤</div>{search||roleFilter!=='All'?'No users match your filters.':'No users registered yet.'}</div>
+          ):(
+            <div style={{overflowX:'auto'}}>
               <table className="ui-table">
                 <thead>
                   <tr>
-                    <th onClick={() => handleSort('name')}>User <SortIcon col="name"/></th>
-                    <th onClick={() => handleSort('email')}>Email <SortIcon col="email"/></th>
+                    <th onClick={()=>handleSort('name')}>User <SortIcon col="name"/></th>
+                    <th onClick={()=>handleSort('email')}>Email <SortIcon col="email"/></th>
                     <th>Phone</th>
                     <th>Role</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {paginated.map(user => {
-                    const isEditing  = editId === user._id;
-                    const roleStyle  = ROLE_COLORS[user.userType] || ROLE_COLORS.Ordinary;
-                    return (
-                      <tr key={user._id} className={isEditing ? 'ui-edit-row' : ''}>
+                  {paginated.map(user=>{
+                    const isEditing = editId===user._id;
+                    const roleStyle = ROLE_COLORS[user.userType]||ROLE_COLORS.Ordinary;
+                    return(
+                      <tr key={user._id} className={isEditing?'ui-edit-row':''}>
                         <td>
-                          {isEditing ? (
-                            <input className="ui-edit-input" value={editForm.name} onChange={e => setEditForm(p => ({ ...p, name:e.target.value }))}/>
-                          ) : (
+                          {isEditing?(
+                            <input className="ui-edit-input" value={editForm.name} onChange={e=>setEditForm(p=>({...p,name:e.target.value}))}/>
+                          ):(
                             <div className="ui-user-cell">
                               <div className="ui-avatar">{user.name?.[0]?.toUpperCase()}</div>
                               <div>
@@ -229,33 +221,19 @@ export default function UserInfo({ showToast }) {
                             </div>
                           )}
                         </td>
+                        <td>{isEditing?<input className="ui-edit-input" type="email" value={editForm.email} onChange={e=>setEditForm(p=>({...p,email:e.target.value}))}/>:user.email}</td>
+                        <td>{isEditing?<input className="ui-edit-input" type="tel" value={editForm.phone} placeholder="Phone" onChange={e=>setEditForm(p=>({...p,phone:e.target.value}))}/>:(user.phone||'—')}</td>
                         <td>
-                          {isEditing
-                            ? <input className="ui-edit-input" type="email" value={editForm.email} onChange={e => setEditForm(p => ({ ...p, email:e.target.value }))}/>
-                            : user.email}
-                        </td>
-                        <td>
-                          {isEditing
-                            ? <input className="ui-edit-input" type="tel" value={editForm.phone} placeholder="Phone" onChange={e => setEditForm(p => ({ ...p, phone:e.target.value }))}/>
-                            : (user.phone || '—')}
-                        </td>
-                        <td>
-                          <span className="ui-pill" style={{ background:roleStyle.bg, color:roleStyle.color, border:`1px solid ${roleStyle.border}` }}>
-                            {user.userType || 'Ordinary'}
+                          <span className="ui-pill" style={{background:roleStyle.bg,color:roleStyle.color,border:`1px solid ${roleStyle.border}`}}>
+                            {user.userType||'Ordinary'}
                           </span>
                         </td>
                         <td>
                           <div className="ui-actions">
-                            {isEditing ? (
-                              <>
-                                <button className="ui-btn save" onClick={() => saveEdit(user._id)}>✓ Save</button>
-                                <button className="ui-btn cancel" onClick={() => setEditId(null)}>✕</button>
-                              </>
-                            ) : (
-                              <>
-                                <button className="ui-btn edit" onClick={() => startEdit(user)}>✏ Edit</button>
-                                <button className="ui-btn del" onClick={() => setConfirmId(user._id)}>🗑 Delete</button>
-                              </>
+                            {isEditing?(
+                              <><button className="ui-btn save" onClick={()=>saveEdit(user._id)}>✓ Save</button><button className="ui-btn cancel" onClick={()=>setEditId(null)}>✕</button></>
+                            ):(
+                              <><button className="ui-btn edit" onClick={()=>startEdit(user)}>✏ Edit</button><button className="ui-btn del" onClick={()=>setConfirmId(user._id)}>🗑 Delete</button></>
                             )}
                           </div>
                         </td>
@@ -266,33 +244,27 @@ export default function UserInfo({ showToast }) {
               </table>
             </div>
           )}
-
-          {totalPages > 1 && (
+          {totalPages>1&&(
             <div className="ui-pagination">
-              <span className="ui-page-info">Showing {(page-1)*PAGE_SIZE+1}–{Math.min(page*PAGE_SIZE, filtered.length)} of {filtered.length}</span>
+              <span className="ui-page-info">Showing {(page-1)*PAGE_SIZE+1}–{Math.min(page*PAGE_SIZE,filtered.length)} of {filtered.length}</span>
               <div className="ui-page-btns">
-                <button className="ui-page-btn" onClick={() => setPage(p=>p-1)} disabled={page===1}>‹</button>
-                {Array.from({ length:totalPages }, (_,i) => (
-                  <button key={i+1} className={`ui-page-btn${page===i+1?' active':''}`} onClick={() => setPage(i+1)}>{i+1}</button>
-                ))}
-                <button className="ui-page-btn" onClick={() => setPage(p=>p+1)} disabled={page===totalPages}>›</button>
+                <button className="ui-page-btn" onClick={()=>setPage(p=>p-1)} disabled={page===1}>‹</button>
+                {Array.from({length:totalPages},(_,i)=><button key={i+1} className={`ui-page-btn${page===i+1?' active':''}`} onClick={()=>setPage(i+1)}>{i+1}</button>)}
+                <button className="ui-page-btn" onClick={()=>setPage(p=>p+1)} disabled={page===totalPages}>›</button>
               </div>
             </div>
           )}
         </div>
       </div>
 
-      {/* Delete Confirmation Modal (fixed CSS) */}
-      {confirmId && (
-        <div className="ui-confirm-ov" onClick={e => e.target===e.currentTarget && setConfirmId(null)}>
+      {confirmId&&(
+        <div className="ui-confirm-ov" onClick={e=>e.target===e.currentTarget&&setConfirmId(null)}>
           <div className="ui-confirm">
             <div className="ui-confirm-icon">⚠️</div>
             <div className="ui-confirm-title">Delete User?</div>
-            <div className="ui-confirm-msg">
-              This will permanently remove the user and all their associated data. This action cannot be undone.
-            </div>
+            <div className="ui-confirm-msg">This will permanently remove the user and all their associated data. This action cannot be undone.</div>
             <div className="ui-confirm-footer">
-              <button className="ui-confirm-btn cancel-btn" onClick={() => setConfirmId(null)}>Cancel</button>
+              <button className="ui-confirm-btn cancel-btn" onClick={()=>setConfirmId(null)}>Cancel</button>
               <button className="ui-confirm-btn del-btn" onClick={deleteUser}>Yes, Delete</button>
             </div>
           </div>
