@@ -1,149 +1,177 @@
-# ResolveNow – AI-Powered Complaint Management Platform
+# 🚀 3D Developer Portfolio
 
-ResolveNow is a full-stack AI-powered complaint registration and management platform designed to streamline complaint handling workflows for users, agents, and administrators.
+A modern, responsive **3D Developer Portfolio** built with **React**, **Vite**, **Three.js**, and **Tailwind CSS**, showcasing skills, projects, and experience with smooth animations and interactive 3D elements.
 
-The platform provides real-time complaint tracking, role-based access control, analytics dashboards, secure authentication, and scalable backend architecture to improve complaint resolution efficiency.
-
----
-
-## 🚀 Features
-
-### 👤 User Module
-- User Registration & Login
-- Raise Complaints
-- Complaint Status Tracking
-- File Upload Support
-- Notifications & Updates
-- User Dashboard
-- Complaint History
-
-### 🛠️ Agent Module
-- Assigned Complaint Management
-- Update Complaint Status
-- Resolution Notes
-- Complaint Analytics
-- Real-Time Workflow Handling
-
-### 👨‍💼 Admin Module
-- Manage Users & Agents
-- Assign Complaints
-- Dashboard Analytics
-- Complaint Monitoring
-- Export Complaint Data
-- Role-Based Access Control
-
-### 🤖 AI Features
-- AI-Assisted Complaint Enhancement
-- Smart Workflow Optimization
-- Automated Complaint Handling Support
+🔗 **Live Demo:** [https://3-d-developer-portfolio-eizl4fhu1.vercel.app/](https://3-d-developer-portfolio-eizl4fhu1.vercel.app/)
 
 ---
 
-## 🧰 Tech Stack
+## 👋 About Me
+
+Hi, I'm **Lovaraju Dungala**, a Software Developer passionate about building scalable web applications, interactive user interfaces, and intelligent systems. I enjoy turning ideas into clean, maintainable, and high-performance software solutions.
+
+---
+
+## ✨ Features
+
+- ⚛️ **React 18 + Vite** for fast development and builds
+- 🎮 **Three.js & React Three Fiber** for interactive 3D visuals
+- 🎨 **Tailwind CSS** for modern, responsive UI
+- 🌀 **Framer Motion** for smooth animations
+- ☀️ **Light theme** with warm cream + purple accent design
+- 🔗 **Social profile links** — GitHub, LinkedIn, LeetCode, GeeksForGeeks
+- 🧭 Interactive sections: About, Experience, Projects, Testimonials, Contact
+- 📱 Fully responsive — desktop, tablet, and mobile
+- 📧 **EmailJS** contact form — sends messages directly to inbox
+- 🚀 Deployed on **Vercel** with CI/CD from GitHub
+
+---
+
+## 🛠️ Tech Stack
 
 ### Frontend
-- React.js
-- JavaScript
-- Tailwind CSS
-- Axios
+| Technology | Purpose |
+|---|---|
+| React 18 | UI framework |
+| Vite | Build tool & dev server |
+| JavaScript ES6+ | Core language |
+| Tailwind CSS | Utility-first styling |
+| Framer Motion | Animations & transitions |
 
-### Backend
-- Node.js
-- Express.js
-- MongoDB
-- JWT Authentication
+### 3D & Animation
+| Technology | Purpose |
+|---|---|
+| Three.js | 3D rendering engine |
+| @react-three/fiber | React renderer for Three.js |
+| @react-three/drei | Three.js helpers & utilities |
+| react-parallax-tilt | Tilt hover effect on cards |
 
-### Tools & Utilities
-- REST APIs
-- Git & GitHub
-- Role-Based Authentication
-- File Upload Handling
-
----
-
-## 📸 Screenshots
-
-### 🏠 Landing Page
-<img width="1895" height="921" alt="image" src="https://github.com/user-attachments/assets/f5023041-4daf-4b1a-bf69-541011f2071d" />
-
-
-
-### 👤 User Dashboard
-<img width="1918" height="924" alt="Screenshot 2026-05-11 210620" src="https://github.com/user-attachments/assets/dfb27bae-7d55-48a8-b009-38296bf3a9a6" />
-
-### 🛠️ Agent Dashboard
-<img width="1909" height="920" alt="Screenshot 2026-05-11 210817" src="https://github.com/user-attachments/assets/5b2e6d95-7749-4fec-ba0b-7d8920543a00" />
-
-### 👨‍💼 Admin Dashboard
-<img width="1917" height="912" alt="Screenshot 2026-05-11 210905" src="https://github.com/user-attachments/assets/bc65e043-453a-4537-8efa-ce1105992136" />
-
-
-### 📊 Complaint Filing
-<img width="1917" height="925" alt="Screenshot 2026-05-11 210720" src="https://github.com/user-attachments/assets/0260f277-9e84-4bfb-91ee-173c63f287fa" />
-
-
-### 📋 Complaint Management
-<img width="1917" height="911" alt="Screenshot 2026-05-11 210919" src="https://github.com/user-attachments/assets/64000aac-54b6-4329-abf3-a2e9f48635f4" />
-
-
-<img width="1908" height="919" alt="Screenshot 2026-05-11 210832" src="https://github.com/user-attachments/assets/78481d15-c92c-4a91-ab47-d73e50101e99" />
-
+### Services
+| Service | Purpose |
+|---|---|
+| EmailJS | Contact form email delivery |
+| Vercel | Hosting & CI/CD deployment |
+| GitHub | Version control & source |
 
 ---
 
-## ⚙️ Installation & Setup
+## 📂 Project Structure
 
-### 1️⃣ Clone Repository
-
-```bash
-git clone https://github.com/lovaraju4406/Resolve_complaint.git
+```
+project_3D_developer_portfolio/
+├── public/
+│   ├── desktop_pc/          # 3D desktop PC model (GLTF)
+│   ├── planet/              # 3D Earth model (GLTF)
+│   └── lovaraju_resume.pdf  # Downloadable resume
+├── src/
+│   ├── assets/              # Images, icons, company logos
+│   │   ├── tech/            # Technology icons for 3D balls
+│   │   └── company/         # Company logos for experience
+│   ├── components/
+│   │   ├── canvas/          # Three.js 3D canvas components
+│   │   │   ├── Ball.jsx     # Floating tech skill balls
+│   │   │   ├── Computers.jsx# Hero 3D desktop model
+│   │   │   ├── Earth.jsx    # Contact section Earth model
+│   │   │   └── Stars.jsx    # Animated star background
+│   │   ├── Navbar.jsx       # Fixed top navigation
+│   │   ├── Hero.jsx         # Landing section with social links
+│   │   ├── About.jsx        # Bio + service cards
+│   │   ├── Experience.jsx   # Internship timeline
+│   │   ├── Tech.jsx         # Technology skill balls grid
+│   │   ├── Works.jsx        # Project cards
+│   │   ├── Feedbacks.jsx    # Testimonials
+│   │   ├── Contact.jsx      # Contact form + Earth canvas
+│   │   └── Loader.jsx       # 3D canvas loading spinner
+│   ├── constants/
+│   │   └── index.js         # All site content & data
+│   ├── hoc/
+│   │   └── SectionWrapper.jsx # Animation HOC for sections
+│   ├── utils/
+│   │   └── motion.js        # Framer Motion animation variants
+│   ├── styles.js            # Reusable Tailwind class strings
+│   ├── index.css            # Global styles & custom classes
+│   ├── App.jsx              # Root component & routing
+│   └── main.jsx             # React entry point
+├── .env                     # Environment variables (EmailJS keys)
+├── tailwind.config.cjs      # Tailwind theme configuration
+├── vite.config.js           # Vite build configuration
+├── package.json
+└── README.md
 ```
 
 ---
 
-### 2️⃣ Backend Setup
+## ⚙️ Getting Started (Local Setup)
 
+### Prerequisites
+- Node.js v16 or higher
+- npm v7 or higher
+
+### 1️⃣ Clone the repository
 ```bash
-cd backend
-npm install
-npm start
+git clone https://github.com/lovaraju4406/3D-developer-portfolio.git
+cd 3D-developer-portfolio
 ```
 
-or
-
+### 2️⃣ Install dependencies
 ```bash
-node index.js
+npm install --legacy-peer-deps
 ```
+
+### 3️⃣ Set up environment variables
+Create a `.env` file in the root directory:
+```env
+VITE_EMAILJS_SERVICE_ID=your_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_template_id
+VITE_EMAILJS_PUBLIC_KEY=your_public_key
+VITE_EMAILJS_RECEIVER_EMAIL=your_email@example.com
+```
+> Get these values from [https://www.emailjs.com](https://www.emailjs.com)
+
+### 4️⃣ Run the development server
+```bash
+npm run dev
+```
+Open 👉 [http://localhost:5173](http://localhost:5173)
 
 ---
 
-### 3️⃣ Frontend Setup
+## 🏗️ Build for Production
 
 ```bash
-cd frontend
-npm install
-npm start
+npm run build
 ```
-### 🔐 Environment Variables
+Generates an optimized `dist/` folder ready for deployment.
 
-Create a .env file inside the backend folder:
+---
 
-MONGO_URI=your_mongodb_connection
+## 🔗 Social Profiles
 
-JWT_SECRET=your_secret_key
-### 🌟 Future Enhancements
-Real-Time Chat System
+| Platform | Link |
+|---|---|
+| 💼 LinkedIn | [lovaraju-dungala](https://www.linkedin.com/in/lovaraju-dungala/) |
+| 🐙 GitHub | [lovaraju4406](https://github.com/lovaraju4406) |
+| 🟠 LeetCode | [lovaraju4406](https://leetcode.com/u/lovaraju4406/) |
+| 🟢 GeeksForGeeks | [lovaraju4406](https://www.geeksforgeeks.org/user/lovaraju4406/) |
 
-Email Notifications
+---
 
-AI-Based Complaint Prioritization
+## 🚀 Deployment
 
-Cloud Deployment
+The project is deployed on **Vercel** with automatic CI/CD.
 
-Advanced Analytics
-### 👨‍💻 Author
-Lovaraju Dungala
+- Every push to `main` triggers a new deployment
+- Build command: `npm install --legacy-peer-deps && npm run build`
+- Output directory: `dist`
 
-GitHub: https://github.com/lovaraju4406
+🔗 **Live URL:** [https://3-d-developer-portfolio-eizl4fhu1.vercel.app/](https://3-d-developer-portfolio-eizl4fhu1.vercel.app/)
 
-LinkedIn: https://www.linkedin.com/in/lova-raju-dungala-367591314/
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+<p align="center">Made with ❤️ by <strong>Lovaraju Dungala</strong></p>
