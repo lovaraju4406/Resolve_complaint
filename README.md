@@ -145,16 +145,6 @@ Generates an optimized `dist/` folder ready for deployment.
 
 ---
 
-## 🔗 Social Profiles
-
-| Platform | Link |
-|---|---|
-| 💼 LinkedIn | [lovaraju-dungala](https://www.linkedin.com/in/lovaraju-dungala/) |
-| 🐙 GitHub | [lovaraju4406](https://github.com/lovaraju4406) |
-| 🟠 LeetCode | [lovaraju4406](https://leetcode.com/u/lovaraju4406/) |
-| 🟢 GeeksForGeeks | [lovaraju4406](https://www.geeksforgeeks.org/user/lovaraju4406/) |
-
----
 
 ## 🚀 Deployment
 
